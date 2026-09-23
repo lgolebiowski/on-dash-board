@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
-import type { BusinessDetails, OnboardingFormData, ServiceDetails } from "./types";
+import type { BusinessDetails, ServiceDetails } from "./schema";
+import type { OnboardingFormData } from "./types";
 
 type OnboardingFormContextValue = {
   data: OnboardingFormData;

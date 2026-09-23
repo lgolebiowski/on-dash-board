@@ -9,7 +9,7 @@ import { Form } from "@/components/form";
 import { Input } from "@/components/input";
 import { PageHeader } from "@/components/page-header";
 import { useOnboardingForm } from "@/lib/onboarding/form-context";
-import { businessDetailsSchema, type BusinessDetails } from "@/lib/onboarding/types";
+import { businessDetailsSchema, type BusinessDetails } from "@/lib/onboarding/schema";
 
 export default function BusinessDetailsPage() {
   const router = useRouter();

@@ -10,7 +10,7 @@ import { Input } from "@/components/input";
 import { PageHeader } from "@/components/page-header";
 import { Select } from "@/components/select";
 import { useOnboardingForm } from "@/lib/onboarding/form-context";
-import { SERVICE_TYPES, serviceDetailsSchema, type ServiceDetails } from "@/lib/onboarding/types";
+import { SERVICE_TYPES, serviceDetailsSchema, todayDateString, type ServiceDetails } from "@/lib/onboarding/schema";
 
 const SERVICE_TYPE_LABELS: Record<(typeof SERVICE_TYPES)[number], string> = {
   canteen: "Canteen",
@@ -62,7 +62,7 @@ export default function ServiceDetailsPage() {
       </Field>
 
       <Field label="Expected operating start date" htmlFor="startDate" error={errors.startDate?.message}>
-        <Input id="startDate" type="date" {...register("startDate")} />
+        <Input id="startDate" type="date" min={todayDateString()} {...register("startDate")} />
       </Field>
 
       <div className="flex gap-3">
