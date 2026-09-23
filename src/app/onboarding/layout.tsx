@@ -13,7 +13,7 @@ function StepIndicator() {
   if (stepIndex === -1) return null;
 
   return (
-    <p>
+    <p className="mb-4 text-sm text-zinc-500">
       Step {stepIndex + 1} of {STEPS.length}
     </p>
   );
@@ -22,8 +22,12 @@ function StepIndicator() {
 export default function OnboardingLayout({ children }: { children: ReactNode }) {
   return (
     <OnboardingFormProvider>
-      <StepIndicator />
-      {children}
+      <div className="flex flex-1 flex-col items-center px-6 py-12">
+        <div className="w-full max-w-md">
+          <StepIndicator />
+          {children}
+        </div>
+      </div>
     </OnboardingFormProvider>
   );
 }

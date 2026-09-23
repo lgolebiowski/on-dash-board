@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/button";
+import { PageHeader } from "@/components/page-header";
 import { useOnboardingForm } from "@/lib/onboarding/form-context";
 import { submitOnboarding } from "@/lib/onboarding/mock-submit";
 
@@ -37,11 +39,10 @@ export default function ReviewPage() {
   if (!isComplete) {
     return (
       <div>
-        <h1>Review and submit</h1>
-        <p>Please complete the previous steps first.</p>
-        <button type="button" onClick={() => router.push("/onboarding/business")}>
+        <PageHeader title="Review and submit" description="Please complete the previous steps first." />
+        <Button type="button" variant="primary" onClick={() => router.push("/onboarding/business")}>
           Go to business details
-        </button>
+        </Button>
       </div>
     );
   }
@@ -49,56 +50,61 @@ export default function ReviewPage() {
   if (status === "success") {
     return (
       <div>
-        <h1>Application submitted</h1>
-        <p>Thanks — we&apos;ve received your application and will be in touch shortly.</p>
+        <PageHeader
+          title="Application submitted"
+          description="Thanks — we've received your application and will be in touch shortly."
+        />
       </div>
     );
   }
 
   return (
     <div>
-      <h1>Review and submit</h1>
-      <p>Check your details before submitting.</p>
+      <PageHeader title="Review and submit" description="Check your details before submitting." />
 
-      <section>
-        <h2>Business details</h2>
-        <button type="button" onClick={() => router.push("/onboarding/business")}>
+      <section className="mb-6">
+        <h2 className="mb-2 text-lg font-semibold">Business details</h2>
+        <Button type="button" onClick={() => router.push("/onboarding/business")}>
           Edit
-        </button>
-        <dl>
-          <dt>Business name</dt>
-          <dd>{business.businessName}</dd>
-          <dt>ABN</dt>
-          <dd>{business.abn}</dd>
-          <dt>Primary contact name</dt>
-          <dd>{business.contactName}</dd>
-          <dt>Contact email</dt>
-          <dd>{business.contactEmail}</dd>
-          <dt>Contact phone</dt>
-          <dd>{business.contactPhone}</dd>
+        </Button>
+        <dl className="mt-2 text-sm">
+          <dt className="mt-2 text-zinc-500">Business name</dt>
+          <dd className="font-medium">{business.businessName}</dd>
+          <dt className="mt-2 text-zinc-500">ABN</dt>
+          <dd className="font-medium">{business.abn}</dd>
+          <dt className="mt-2 text-zinc-500">Primary contact name</dt>
+          <dd className="font-medium">{business.contactName}</dd>
+          <dt className="mt-2 text-zinc-500">Contact email</dt>
+          <dd className="font-medium">{business.contactEmail}</dd>
+          <dt className="mt-2 text-zinc-500">Contact phone</dt>
+          <dd className="font-medium">{business.contactPhone}</dd>
         </dl>
       </section>
 
-      <section>
-        <h2>Service details</h2>
-        <button type="button" onClick={() => router.push("/onboarding/service")}>
+      <section className="mb-6">
+        <h2 className="mb-2 text-lg font-semibold">Service details</h2>
+        <Button type="button" onClick={() => router.push("/onboarding/service")}>
           Edit
-        </button>
-        <dl>
-          <dt>Service type</dt>
-          <dd>{SERVICE_TYPE_LABELS[service.serviceType] ?? service.serviceType}</dd>
-          <dt>School or location name</dt>
-          <dd>{service.locationName}</dd>
-          <dt>Expected operating start date</dt>
-          <dd>{service.startDate}</dd>
+        </Button>
+        <dl className="mt-2 text-sm">
+          <dt className="mt-2 text-zinc-500">Service type</dt>
+          <dd className="font-medium">{SERVICE_TYPE_LABELS[service.serviceType] ?? service.serviceType}</dd>
+          <dt className="mt-2 text-zinc-500">School or location name</dt>
+          <dd className="font-medium">{service.locationName}</dd>
+          <dt className="mt-2 text-zinc-500">Expected operating start date</dt>
+          <dd className="font-medium">{service.startDate}</dd>
         </dl>
       </section>
 
-      {status === "error" && <p>Something went wrong submitting your application. Please try again.</p>}
+      {status === "error" && (
+        <p className="mb-4 text-sm text-red-600">
+          Something went wrong submitting your application. Please try again.
+        </p>
+      )}
 
-      <button type="button" onClick={handleSubmit} disabled={status === "submitting"}>
+      <Button type="button" variant="primary" onClick={handleSubmit} disabled={status === "submitting"}>
         {status === "submitting" ? "Submitting..." : "Submit"}
-      </button>
+      </Button>
     </div>
   );
 }

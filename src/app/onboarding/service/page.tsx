@@ -3,6 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { Button } from "@/components/button";
+import { Field } from "@/components/field";
+import { Form } from "@/components/form";
+import { Input } from "@/components/input";
+import { PageHeader } from "@/components/page-header";
+import { Select } from "@/components/select";
 import { useOnboardingForm } from "@/lib/onboarding/form-context";
 import { SERVICE_TYPES, serviceDetailsSchema, type ServiceDetails } from "@/lib/onboarding/types";
 
@@ -32,12 +38,14 @@ export default function ServiceDetailsPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Service details</h1>
-      <p>Tell us what you&apos;ll be running and where.</p>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <PageHeader
+        title="Service details"
+        description="Tell us what you'll be running and where."
+      />
 
       <Field label="Service type" htmlFor="serviceType" error={errors.serviceType?.message}>
-        <select id="serviceType" defaultValue="" {...register("serviceType")}>
+        <Select id="serviceType" defaultValue="" {...register("serviceType")}>
           <option value="" disabled>
             Select a service type
           </option>
@@ -46,41 +54,25 @@ export default function ServiceDetailsPage() {
               {SERVICE_TYPE_LABELS[type]}
             </option>
           ))}
-        </select>
+        </Select>
       </Field>
 
       <Field label="School or location name" htmlFor="locationName" error={errors.locationName?.message}>
-        <input id="locationName" {...register("locationName")} />
+        <Input id="locationName" {...register("locationName")} />
       </Field>
 
       <Field label="Expected operating start date" htmlFor="startDate" error={errors.startDate?.message}>
-        <input id="startDate" type="date" {...register("startDate")} />
+        <Input id="startDate" type="date" {...register("startDate")} />
       </Field>
 
-      <button type="button" onClick={() => router.push("/onboarding/business")}>
-        Back
-      </button>
-      <button type="submit">Next</button>
-    </form>
-  );
-}
-
-function Field({
-  label,
-  htmlFor,
-  error,
-  children,
-}: {
-  label: string;
-  htmlFor: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <label htmlFor={htmlFor}>{label}</label>
-      {children}
-      {error && <p>{error}</p>}
-    </div>
+      <div className="flex gap-3">
+        <Button type="button" onClick={() => router.push("/onboarding/business")}>
+          Back
+        </Button>
+        <Button type="submit" variant="primary">
+          Next
+        </Button>
+      </div>
+    </Form>
   );
 }
